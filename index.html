@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Learning FireBase</title>
+</head>
+<body>
+    <div class="login-page-container">
+        <div class="login-page-wrapper">
+            <form class="login-form" id="form">
+                <h2>Login</h2>
+                <label>
+                    <span>Email</span>
+                    <input type="email" required id="email">
+                </label>
+                <label>
+                    <span>password</span>
+                    <input type="password" required id="password">
+                </label>
+                <div class="button-container">
+                    <button class="button" type="button" id="button">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAdZI75B_rncoLg59qBDjpDlkJR2Wdmx-I",
+    authDomain: "the-dojo-9329b.firebaseapp.com",
+    projectId: "the-dojo-9329b",
+    storageBucket: "the-dojo-9329b.appspot.com",
+    messagingSenderId: "403370800981",
+    appId: "1:403370800981:web:024744b2bbce712ee8e1dc"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth()
+
+const email = document.getElementById('email')
+const password = document.getElementById('password')
+const button = document.getElementById('button')
+const form = document.getElementById('form')
+
+button.addEventListener('click', async() => {
+    try{
+        console.log(email.value, password.value)
+        await signInWithEmailAndPassword(auth, email.value, password.value)
+        .then(userCredential => {
+            console.log(userCredential)
+            window.alert('Your Logged in')
+        })
+        .catch(error => console.log(error))
+    } catch(error){
+        console.log(error)
+    }
+})
+</script>
+</html>
